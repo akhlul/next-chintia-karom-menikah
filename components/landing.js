@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image'
+// import Image from 'next/image'
 
 // Styles
 import styles from './landing.module.css'
@@ -46,7 +46,8 @@ const Landing = () => {
       <div className="h-full w-full bg-brand-400">
         {/* xl:w-1/4 lg:w-1/3 md:w-1/2 w-2/3 p-2 block mx-auto mb-10 */}
         <div className="object-cover object-center relative rounded-full">
-          <Image src="/photos/IMG-20210424-WA0007.jpg" height={500} width={500} layout="responsive" objectFit="cover" />
+          <img src="/photos/IMG-20210424-WA0007.jpg" alt="prayer" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"/>
+          {/* <Image src="/photos/IMG-20210424-WA0007.jpg" height={500} width={500} layout="responsive" objectFit="cover" /> */}
         </div>
       </div>
       <div className="container px-5 py-24 mx-auto">
