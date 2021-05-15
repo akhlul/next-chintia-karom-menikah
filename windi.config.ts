@@ -2,6 +2,10 @@ const colors = require('windicss/colors')
 
 export default {
     theme: {
+        fontFamily: {
+            sans: 'Nunito Sans',
+            serif: 'Lora',
+        },
         colors: {
             transparent: 'transparent',
             black: colors.black,
@@ -37,6 +41,7 @@ export default {
         },
         extend: {
             fontFamily: {
+                // sans: ['Nunito Sans', 'system-ui'],
                 display: ['Heart Breath DEMO'],
             },
         },

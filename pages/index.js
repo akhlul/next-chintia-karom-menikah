@@ -1,8 +1,6 @@
 import Landing from "../components/landing"
 
 const HomePage = () => {
-
-  
   return (
     <>
       <Landing />
