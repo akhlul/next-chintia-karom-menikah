@@ -10,6 +10,11 @@
   },
   "dependencies": {
     "@fontsource/nunito-sans": "^4.3.0",
+    "imagemin": "^8.0.0",
+    "imagemin-jpegoptim": "^7.0.0",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-webp": "^6.0.0",
+    "imagemin-zopfli": "^7.0.0",
     "next": "10.2.0",
     "next-images": "^1.7.0",
     "react": "17.0.2",
