@@ -3,7 +3,12 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url('./guides/HeartBreath-DEMO.woff') format('woff');
+  src: url('./public/HeartBreath-DEMO.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Heart Breath DEMO';
+  src: url('/HeartBreath-DEMO.woff') format('woff');
 }
 
 @font-face {
