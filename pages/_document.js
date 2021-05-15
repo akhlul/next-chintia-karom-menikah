@@ -18,16 +18,13 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-          <link rel="stylesheet"
+          <link rel="preload" as="style"
             href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap"
-            media="print" onLoad="this.media='all'"
           />
-          <link
-            rel="preload"
-            href="/HeartBreath-Demo.woff"
-            as="font"
-            crossOrigin=""
+          <link rel="preload" as="style"
+            href="https://fonts.googleapis.com/css2?family=Lora&display=swap"
           />
+          <link rel="preload" href="/HeartBreath-Demo.woff" as="font" crossOrigin="" />
         </Head>
         <body>
           <Main />
