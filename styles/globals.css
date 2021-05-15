@@ -1,16 +1,14 @@
+@font-face {
+  font-family: 'Heart Breath DEMO';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('./guides/HeartBreath-DEMO.woff') format('woff');
+}
+
 html,
 body {
-  padding: 0;
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
+  color: black;
 }
