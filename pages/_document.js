@@ -24,7 +24,7 @@ class MyDocument extends Document {
           />
           <link
             rel="preload"
-            href="/fonts/HeartBreath-Demo.ttf"
+            href="/HeartBreath-Demo.woff"
             as="font"
             crossOrigin=""
           />
