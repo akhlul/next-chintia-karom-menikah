@@ -1,15 +1,88 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ReactBnbGallery from 'react-bnb-gallery';
 // import Image from 'next/image'
 
 // Styles
 import styles from './landing.module.css'
+import 'react-bnb-gallery/dist/style.css'
 
 // Components
+import { Gallery } from "./gallery";
 import { QuotationMark, EngagementRing } from './quotation-mark.svg.js'
 
 const Landing = () => {
+  const [countdownDate, setCountdownDate] = useState(new Date('05/22/2021').getTime());
+  const [countdownTimer, setCountdownTimer] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    setInterval(() => updateCountdown(), 1000);
+  }, []);
+
+  const updateCountdown = () => {
+    if (countdownDate) {
+      const currentTime = new Date().getTime();
+      const distanceToDate = countdownDate - currentTime;
+      let days = Math.floor(distanceToDate / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((distanceToDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),);
+      let minutes = Math.floor((distanceToDate % (1000 * 60 * 60)) / (1000 * 60),);
+      let seconds = Math.floor((distanceToDate % (1000 * 60)) / 1000);
+
+      const numbersToAddZeroTo = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      if (numbersToAddZeroTo.includes(hours)) {
+        hours = `0${hours}`;
+      } else if (numbersToAddZeroTo.includes(minutes)) {
+        minutes = `0${minutes}`;
+      } else if (numbersToAddZeroTo.includes(seconds)) {
+        seconds = `0${seconds}`;
+      }
+      setCountdownTimer({ days: days, hours: hours, minutes, seconds });
+    }
+  };
+
+  const photos_names = [
+    { filename: "IMG-20210424-WA0005.jpg", },
+    { filename: "IMG-20210424-WA0006.jpg", },
+    { filename: "IMG-20210424-WA0007.jpg", },
+    { filename: "IMG-20210424-WA0008.jpg", },
+    { filename: "IMG-20210424-WA0009.jpg", },
+    { filename: "IMG-20210424-WA0010.jpg", },
+    { filename: "IMG-20210424-WA0011.jpg", },
+    { filename: "IMG-20210424-WA0013.jpg", },
+    { filename: "IMG-20210424-WA0014.jpg", },
+    { filename: "IMG-20210424-WA0015.jpg", },
+    { filename: "IMG-20210424-WA0016.jpg", },
+    { filename: "IMG-20210424-WA0017.jpg", },
+    { filename: "IMG-20210424-WA0018.jpg", },
+    { filename: "IMG-20210424-WA0019.jpg", },
+    { filename: "IMG-20210424-WA0020.jpg", },
+    { filename: "IMG-20210424-WA0021.jpg", },
+    { filename: "IMG-20210424-WA0022.jpg", },
+    { filename: "IMG-20210424-WA0023.jpg", },
+    { filename: "IMG-20210424-WA0024.jpg", },
+    { filename: "IMG-20210424-WA0025.jpg", },
+  ];
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [photos, setPhotos] = useState([]);
+  useEffect(() => {
+    const output = photos_names.map((photo) => {
+      return {
+        'photo': `/photos/${photo.filename}`,
+        'thumbnail': `/photos/thumbnail/${photo.filename}`,
+        'caption': '',
+        'number': '',
+      }
+    })
+    console.log(output)
+    setPhotos(output)
+  }, [])
 
   const tamu = {
+    // nama: "",
     nama: "Ianah El Sholikhah S.Tr.Stat. dan Pasangan",
     alamat: "BPS Kabupaten Tanah Laut"
   }
@@ -56,7 +129,7 @@ const Landing = () => {
           </div>
           <div className="flex flex-col text-center mt-16 mx-auto">
             <h3 className="font-semibold font-sans">Kepada: </h3>
-            <p className="mb-4 text-sm font-sans">{tamu.nama}<br />({tamu.alamat})</p>
+            <p className="mb-4 text-sm font-sans">{tamu.nama || "Tamu Undangan"}<br />({tamu.alamat || "Di Tempat"})</p>
             <button className="mx-auto text-white bg-brand-500 rounded-3xl border-0 py-1 px-8 focus:outline-none hover:bg-brand-600 rounded text-lg font-sans">Buka Undangan</button>
           </div>
         </div>
@@ -64,7 +137,7 @@ const Landing = () => {
 
     </header>
 
-    <section name="ayat" className="flex items-center justify-center <lg:flex-wrap lg:flex-row text-gray-600 body-font my-4 mx-4 lg:mx-8">
+    <section name="ayat" className="bg-white flex items-center justify-center <lg:flex-wrap lg:flex-row text-gray-600 body-font my-4 mx-4 lg:mx-8">
       <div className="h-full w-full bg-brand-400">
         <div className="object-cover object-center relative rounded-full">
           <img src="/photos/IMG-20210424-WA0007.jpg" alt="prayer" className="w-full h-auto object-cover object-center rounded" />
@@ -102,7 +175,7 @@ const Landing = () => {
             <div className="w-16 h-1 rounded-full bg-white inline-flex"></div>
           </div>
         </div>
-        <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
+        <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6 justify-center content-center">
           <div className="p-4 md:w-1/2 flex flex-col text-center items-center">
             <img src="/photos/her.jpg" alt="cpw" className="h-350px w-350px object-cover object-center relative rounded-full" />
             <div className="flex-grow">
@@ -159,8 +232,8 @@ const Landing = () => {
         <img src="/photos/IMG-20210424-WA0012.jpg" className="w-full h-full object-cover object-center rounded"></img>
       </div>
 
-      <div className="absolute inset-0 z-negative">
-        <div className="box-border mx-2 mt-0 mb-0 wx-[full-2rem] lg:m-8 lg:w-[full-4rem] h-full bg-brand-900 opacity-75"></div>
+      <div className="absolute inset-0 z-negative flex justify-center">
+        <div className="box-border mx-2 mt-0 mb-0 w-full h-full lg:m-8 lg:(w-11/12 h-11/12) bg-brand-900 opacity-75"></div>
       </div>
 
       <div className="flex items-center justify-center flex-col min-h-[screen-5] text-white body-font">
@@ -181,52 +254,233 @@ const Landing = () => {
             <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed">Kediaman Mempelai Wanita</p>
             <p className="lg:w-2/3 mx-auto font-sans font-thin">Desa Plandi Utara RT 21/RW 05 Kec. Jombang, Kab. Jombang</p>
           </div>
-          <div className="flex flex-col text-center mt-16 mx-auto">
-            <button className="mx-auto text-white bg-brand-500 rounded-3xl border-0 py-1 px-8 focus:outline-none hover:bg-brand-600 rounded text-lg font-sans">Menuju Lokasi</button>
+          {/* <button className="mx-auto text-white bg-brand-500 rounded-3xl border-0 py-1 px-8 focus:outline-none hover:bg-brand-600 rounded text-lg font-sans">Menuju Lokasi</button> */}
+          <div className="flex flex-row text-center justify-center space-x-2 font-sans mt-12 mb-16 mx-auto">
+            <div className='time-section'>
+              <div className='font-thin text-4xl -mb-2'>{countdownTimer.days || '0'}</div>
+              <small className="font-semibold">Days</small>
+            </div>
+            <div className='time-section'>
+              <div className='font-semibold'>:</div>
+            </div>
+            <div className='time-section'>
+              <div className='font-thin text-4xl -mb-2'>{countdownTimer.hours || '00'}</div>
+              <small className="font-semibold">Hours</small>
+            </div>
+            <div className='time-section'>
+              <div className='font-semibold'>:</div>
+            </div>
+            <div className='time-section'>
+              <div className='font-thin text-4xl -mb-2'>{countdownTimer.minutes || '00'}</div>
+              <small className="font-semibold">Minutes</small>
+            </div>
+            <div className='time-section'>
+              <div className='font-semibold'>:</div>
+            </div>
+            <div className='time-section'>
+              <div className='font-thin text-4xl -mb-2'>{countdownTimer.seconds || '00'}</div>
+              <small className="font-semibold">Seconds</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section name="galeri" className="flex justify-center text-gray-600 body-font my-4 mx-4 lg:mx-8">
+      {/* <div className="h-full w-full"> */}
+      {/* <button > Open gallery </button> */}
+      <div className="block aspect-1">
+        <div className={styles['masonry']} onClick={() => setIsGalleryOpen(true)}>
+          {photos.map((photo) => (
+            <div className={styles['masonry-brick']}>
+              <img alt="gallery" className="w-full object-cover h-full object-center block" src={photo.thumbnail} />
+            </div>
+          ))}
+          {/* <img src="/photos/IMG-20210424-WA0007.jpg" alt="prayer" className="w-full h-auto object-cover object-center rounded" /> */}
+        </div>
+      </div>
+
+      <ReactBnbGallery
+        show={isGalleryOpen}
+        photos={photos}
+        onClose={() => setIsGalleryOpen(false)}
+      />
+      {/* </div> */}
+    </section>
+
+
+    <section className="text-gray-600 body-font">
+      <div className="container px-5 py-24 mx-auto flex flex-wrap">
+        <div className="flex flex-wrap w-full">
+          <div className="lg:w-3/5 md:w-1/2 md:pr-10 md:py-6">
+
+            <h3 className="font-medium text-2xl lg:text-4xl font-serif text-center tracking-wide my-4">Our Story</h3>
+            <div className="flex relative pb-12">
+              <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+              </div>
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-500 inline-flex items-center justify-center text-white relative z-10">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <div className="flex-grow pl-4">
+                <h2 className="font-sans font-semibold leading-relaxed text-sm text-gray-900 mb-1">1 Oktober 2018</h2>
+                <p className="leading-relaxed">Berada dalam satu kolam yang sama selama 4 tahun, tak lantas membuat kami bisa saling bertemu. Hingga akhirnya kami dipertemukan untuk pertama kali pada saat magang di Subdirektorat SHPB BPS RI.</p>
+              </div>
+            </div>
+            <div className="flex relative pb-12">
+              <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+              </div>
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-500 inline-flex items-center justify-center text-white relative z-10">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+              </div>
+              <div className="flex-grow pl-4">
+                <h2 className="font-sans font-semibold leading-relaxed text-sm text-gray-900 mb-1">21 Desember 2018</h2>
+                <p className="leading-relaxed">
+                  Kami mulai bertukar pesan pribadi melalui whatsapp adalah saat libur natal ketika Kak Karom berada di kereta dalam perjalanan menuju Semarang. Percakapan kami pun berlanjut dari hari ke hari dan cukup intensif. Hingga akhirnya Chintia merasa bahwa jika diteruskan maka hal ini akan berpengaruh pada rasa dalam hatinya.</p>
+              </div>
+            </div>
+            <div className="flex relative pb-12">
+              <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+              </div>
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-500 inline-flex items-center justify-center text-white relative z-10">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
+                  <circle cx="12" cy="5" r="3"></circle>
+                  <path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"></path>
+                </svg>
+              </div>
+              <div className="flex-grow pl-4">
+                <h2 className="font-sans font-semibold leading-relaxed text-sm text-gray-900 mb-1">24 Januari 2019</h2>
+                <p className="leading-relaxed">
+                  Kak Karom menceritakan bahwa sudah lama Chintia sering muncul dalam mimpinya dan membuatnya terbangun tengah malam. Di hari itu juga, Kak Karom mengakui bahwa dia menyukai Chintia.</p>
+              </div>
+            </div>
+            <div className="flex relative pb-12">
+              <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+              </div>
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-500 inline-flex items-center justify-center text-white relative z-10">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div className="flex-grow pl-4">
+                <h2 className="font-sans font-semibold leading-relaxed text-sm text-gray-900 mb-1">31 Januari 2019</h2>
+                <p className="leading-relaxed">
+                  Kak Karom pertama kalinya merasa cemburu. Untuk mengusir kegundahannya, kami memutuskan untuk membicarakan hal tersebut sepulang kantor. Di hari itulah Kak Karom menyatakan bahwa ia ingin menjadi lebih dari sekedar teman. Chintia kala itu tak lantas meng-iyakan, karena dia sedang menunggu orang lain yang sudah bertahun-tahun menjadi teman dekatnya. Kak Karom pun menyanggupi untuk menunggu Chintia memberi kepastian.</p>
+              </div>
+            </div>
+            <div className="flex relative pb-12">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-500 inline-flex items-center justify-center text-white relative z-10">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                  <path d="M22 4L12 14.01l-3-3"></path>
+                </svg>
+              </div>
+              <div className="flex-grow pl-4">
+                <h2 className="font-sans font-semibold leading-relaxed text-sm text-gray-900 mb-1">15 Februari 2019</h2>
+                <p className="leading-relaxed">Chintia menemukan jawaban dari pertanyaan dalam hatinya. Haruskah dia melanjutkan menunggu dia yang tak pasti atau menjalani hubungan jarak jauh dengan seseorang yang baru dekat dengannya satu bulan. Di hari itu dengan penuh keyakinan Chintia memutuskan untuk menjalani hubungan dengan Kak Karom. Dan memulai perjalanan LDR di tanggal 26 Februari 2019.</p>
+              </div>
+            </div>
+            <div className="flex relative pb-12">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-500 inline-flex items-center justify-center text-white relative z-10">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                  <path d="M22 4L12 14.01l-3-3"></path>
+                </svg>
+              </div>
+              <div className="flex-grow pl-4">
+                <h2 className="font-sans font-semibold leading-relaxed text-sm text-gray-900 mb-1">1 November 2020</h2>
+                <p className="leading-relaxed">Long story short setelah menjalani hubungan jarak jauh selama hampir dua tahun, Kak Karom bersama kedua orang tuanya datang untuk melamar Chintia. Lamaran pun diterima. Kak Karom dan Chintia sepakat untuk melanjutkan komitmen mereka bersama</p>
+              </div>
+            </div>
+            <div className="flex relative/'
+            ">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-500 inline-flex items-center justify-center text-white relative z-10">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                  <path d="M22 4L12 14.01l-3-3"></path>
+                </svg>
+              </div>
+              <div className="flex-grow pl-4">
+                <h2 className="font-sans font-semibold leading-relaxed text-sm text-gray-900 mb-1">22 Mei 2021</h2>
+                <p className="leading-relaxed">Akhirnya, tibalah hari bahagia yang akan menjadi tanda dimulainya babak baru dari perjalanan hidup mereka berdua. Semoga Kak Karom dan Chintia menjadi keluarga yang sakinah, mawaddah, warahmah.</p>
+                <p>"I do believe in fate and destiny. I also believe that we are only fated to do the things that we'd choose anyway. And I choose you."</p>
+              </div>
+            </div>
+          </div>
+          <div className="lg:w-2/5 md:w-1/2 space-y-2 mt-12">
+            <img className="w-full h-250px object-cover object-center rounded-lg md:mt-0 mt-4 hidden md:block" src="/photos/IMG-20190222-WA0023.jpg" alt="step" />
+            <img className="w-full h-250px object-cover object-center rounded-lg md:mt-0 mt-4 hidden md:block" src="/photos/IMG20190728143233.jpg" alt="step" />
+            <img className="w-full h-250px object-cover object-center rounded-lg md:mt-0 mt-4 hidden md:block" src="/photos/IMG20191006072105.jpg" alt="step" />
+            <img className="w-full h-250px object-cover object-center rounded-lg md:mt-0 mt-4 hidden md:block" src="/photos/IMG_20191208_233948.jpg" alt="step" />
+            <img className="w-full h-250px object-cover object-center rounded-lg md:mt-0 mt-4" src="/photos/IDE_C_K  220.jpg" alt="step" />
           </div>
         </div>
       </div>
     </section>
 
-    <section className="text-gray-600 body-font relative">
-      <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
+
+    <section name='RSVP' className="text-gray-600 body-font relative">
+      <div className="container px-5 py-12 mx-auto flex sm:flex-nowrap flex-wrap">
         <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
           {/* style={{ filter: 'grayscale(1) contrast(1.2) opacity(0.4)' }} */}
-          <iframe className="absolute inset-0" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d988.7853547030128!2d112.24348062917821!3d-7.559555599659259!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMzMnMzQuNCJTIDExMsKwMTQnMzguNSJF!5e0!3m2!1sid!2sid!4v1621077842151!5m2!1sid!2sid&amp;width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" width="100%" height="100%" frameBorder="0"></iframe>
-          {/* <iframe class="absolute inset-0" scrolling="no" src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" width="100%" height="100%" frameborder="0"></iframe> */}
-          {/* <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md">
-            <div className="lg:w-1/2 px-6">
-              <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">ADDRESS</h2>
-              <p className="mt-1">Photo booth tattooed prism, portland taiyaki hoodie neutra typewriter</p>
+          <iframe className="absolute inset-0" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d988.7853547030128!2d112.24348062917821!3d-7.559555599659259!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMzMnMzQuNCJTIDExMsKwMTQnMzguNSJF!5e0!3m2!1sid!2sid!4v1621077842151!5m2!1sid!2sid&amp;width=100%&amp;height=100%&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" width="100%" height="100%" frameBorder="0"></iframe>
+          {/* <iframe className="absolute inset-0" scrolling="no" src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" width="100%" height="100%" frameborder="0"></iframe> */}
+          <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md font-sans invisible lg:visible">
+            <div className="px-6">
+              <h2 className="title-font font-sans font-semibold text-gray-900 tracking-widest text-xs">Alamat</h2>
+              <p className="mt-1 font-sans">Desa Plandi Utara RT 21/RW 05 Kec. Jombang, Kab. Jombang  </p>
             </div>
-            <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
+            {/* <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
               <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</h2>
-              <a className="text-indigo-500 leading-relaxed">example@email.com</a>
+              <a className="text-brand-500 leading-relaxed">example@email.com</a>
               <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">PHONE</h2>
               <p className="leading-relaxed">123-456-7890</p>
-            </div>
-          </div> */}
+            </div> */}
+          </div>
         </div>
-        <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-          <h2 className="text-gray-900 text-lg mb-1 font-medium title-font">Feedback</h2>
-          <p className="leading-relaxed mb-5 text-gray-600">Post-ironic portland shabby chic echo park, banjo fashion axe</p>
+        <div className="lg:w-1/3 md:w-1/2 bg-brand-400 text-white flex flex-col md:ml-auto w-full md:py-8 px-5 mt-8 md:mt-0">
+          <h3 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4 self-center">RSVP</h3>
+          <p className="leading-relaxed mb-5 text-gray-600 font-sans text-center">Please kindly help us prepare everything better by confirming your attendance to our wedding event with the following RSVP form:</p>
           <div className="relative mb-4">
-            <label for_="name" className="leading-7 text-sm text-gray-600">Name</label>
-            <input type="text" id="name" name="name" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-      </div>
-            <div className="relative mb-4">
-              <label for_="email" className="leading-7 text-sm text-gray-600">Email</label>
-              <input type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-      </div>
-              <div className="relative mb-4">
-                <label for_="message" className="leading-7 text-sm text-gray-600">Message</label>
-                <textarea id="message" name="message" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-              </div>
-              <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
-              <p className="text-xs text-gray-500 mt-3">Chicharrones blog helvetica normcore iceland tousled brook viral artisan.</p>
+            <label className="leading-7 text-sm text-gray-600 font-sans">Nama</label>
+            <input type="text" id="name" name="name" className="w-full bg-white rounded border-0 focus:ring-2 focus:ring-brand-200 text-base outline-none text-brand-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value={tamu.nama || ""} />
+          </div>
+          <div className="relative mb-4">
+            <label className="leading-7 text-sm text-gray-600 font-sans">Pesan</label>
+            <textarea id="message" name="message" className="w-full bg-white rounded border-0 focus:ring-2 focus:ring-brand-200 h-24 text-base outline-none text-brand-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+          </div>
+          <div className="relative mb-4">
+            <label className="leading-7 text-sm text-gray-600 font-san">Apakah akan menghadiri?</label>
+            <div className="flex flex-row space-x-2">
+              <span className="elementor-field-option">
+                <input type="radio" value="Yes" name="is_attending" required="required" aria-required="true" />
+                <label className="leading-7 text-sm text-gray-600 font-san">Ya</label>
+              </span>
+              <span className="">
+                <input type="radio" value="No" name="is_attending" required="required" aria-required="true" />
+                <label className="leading-7 text-sm text-gray-600 font-san">Tidak</label>
+              </span>
+              <span className="">
+                <input type="radio" value="Uncertain" name="is_attending" required="required" aria-required="true" />
+                <label className="leading-7 text-sm text-gray-600 font-san">Ragu-ragu</label>
+              </span>
             </div>
           </div>
-</section>
+          <button className="text-brand-500 bg-white rounded-3xl border-0 py-1 px-8 mx-auto focus:outline-none hover:bg-brand-200 rounded text-lg">Kirim</button>
+          <p className="text-xs text-gray-500 my-3">*Anda dapat mengirim konfirmasi lebih dari beberapa kali.</p>
+        </div>
+      </div>
+    </section>
 
   </>)
 }

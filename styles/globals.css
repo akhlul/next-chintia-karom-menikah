@@ -12,7 +12,7 @@
   src: url('/HeartBreath-DEMO.woff') format('woff');
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Nunito Sans';
   font-display: swap;
   src: url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap") format('woff');
@@ -22,7 +22,7 @@
   font-family: 'Lora';
   font-display: swap;
   src: url('https://fonts.googleapis.com/css2?family=Lora&display=swap') format('woff');
-}
+} */
 
 
 

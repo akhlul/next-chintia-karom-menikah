@@ -57,5 +57,6 @@ export default {
         // require('windicss/plugin/typography'),
         require('windicss/plugin/scroll-snap'),
         require('windicss/plugin/forms'),
+        require('windicss/plugin/aspect-ratio'),
     ],
 }
