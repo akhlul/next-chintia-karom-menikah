@@ -10,7 +10,7 @@ import 'react-bnb-gallery/dist/style.css'
 import { Gallery } from "./gallery";
 import { QuotationMark, EngagementRing } from './quotation-mark.svg.js'
 
-const Landing = () => {
+const Landing2 = ({tamu}) => {
   const [countdownDate, setCountdownDate] = useState(new Date('05/22/2021').getTime());
   const [countdownTimer, setCountdownTimer] = useState({
     days: 0,
@@ -82,12 +82,13 @@ const Landing = () => {
     // console.log(output)
     setPhotos(output)
   }, [])
-
-  const tamu = {
-    // nama: "",
-    nama: "Ianah El Sholikhah S.Tr.Stat. dan Pasangan",
-    alamat: "BPS Kabupaten Tanah Laut"
-  }
+  
+  // console.log(tamu)
+  // const tamu = {
+  //   // nama: "",
+  //   nama: "Ianah El Sholikhah S.Tr.Stat. dan Pasangan",
+  //   tujuan: "BPS Kabupaten Tanah Laut"
+  // }
 
   return (<>
     <header className={styles.header + " relative lg:overflow-hidden font-sans"}>
@@ -109,7 +110,7 @@ const Landing = () => {
           </div>
           <div className="flex flex-col text-center mt-16 mx-auto">
             <h3 className="font-semibold font-sans">Kepada: </h3>
-            <p className="mb-2 text-sm font-sans">{tamu.nama}<br />({tamu.alamat})</p>
+            <p className="mb-2 text-sm font-sans">{tamu.nama}<br />({tamu.tujuan})</p>
             <button className="mx-auto text-white bg-brand-500 rounded-3xl border-0 py-1 px-8 focus:outline-none hover:bg-brand-600 rounded text-lg font-sans">Buka Undangan</button>
           </div>
         </div>
@@ -131,7 +132,7 @@ const Landing = () => {
           </div>
           <div className="flex flex-col text-center mt-16 mx-auto">
             <h3 className="font-semibold font-sans">Kepada: </h3>
-            <p className="mb-4 text-sm font-sans">{tamu.nama || "Tamu Undangan"}<br />({tamu.alamat || "Di Tempat"})</p>
+            <p className="mb-4 text-sm font-sans">{tamu.nama || "Tamu Undangan"}<br />({tamu.tujuan || "Di Tempat"})</p>
             <button className="mx-auto text-white bg-brand-500 rounded-3xl border-0 py-1 px-8 focus:outline-none hover:bg-brand-600 rounded text-lg font-sans">Buka Undangan</button>
           </div>
         </div>
@@ -250,14 +251,25 @@ const Landing = () => {
             <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed">Masjid Agung Baitul Mukminin Jombang</p>
             <p className="lg:w-2/3 mx-auto font-sans font-thin">Jl. KH. A. Dahlan No.28, Jombatan, Kec. Jombang, Kab. Jombang</p>
           </div>
-          <div className="flex flex-col text-center mt-16 mx-auto">
-            <h3 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4">Resepsi</h3>
-            <span className="inline-block self-center h-1 w-10 rounded bg-white mt-2 mb-4"></span>
-            <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed mb-1">Saturday, May 22<sup>th</sup>, 2021</p>
-            <p className="lg:w-2/3 mx-auto font-sans font-thin mb-4">11.00 - 12.00 WIB</p>
-            <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed">Kediaman Mempelai Wanita</p>
-            <p className="lg:w-2/3 mx-auto font-sans font-thin">Desa Plandi Utara RT 21/RW 05 Kec. Jombang, Kab. Jombang</p>
-          </div>
+          { (tamu.acara == '1') ?
+            <div className="flex flex-col text-center mt-16 mx-auto">
+              <h3 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4">Resepsi</h3>
+              <span className="inline-block self-center h-1 w-10 rounded bg-white mt-2 mb-4"></span>
+              <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed mb-1">Saturday, May 22<sup>th</sup>, 2021</p>
+              <p className="lg:w-2/3 mx-auto font-sans font-thin mb-4">11.00 - 12.00 WIB</p>
+              <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed">Kediaman Mempelai Wanita</p>
+              <p className="lg:w-2/3 mx-auto font-sans font-thin">Desa Plandi Utara RT 21/RW 05 Kec. Jombang, Kab. Jombang</p>
+            </div>
+          :
+            <div className="flex flex-col text-center mt-16 mx-auto">
+              <h3 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4">Ngunduh Mantu</h3>
+              <span className="inline-block self-center h-1 w-10 rounded bg-white mt-2 mb-4"></span>
+              <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed mb-1">Sunday, June 6<sup>th</sup>, 2021</p>
+              <p className="lg:w-2/3 mx-auto font-sans font-thin mb-4">12.00 - 15.00 WIB</p>
+              <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed">Kediaman Mempelai Pria</p>
+              <p className="lg:w-2/3 mx-auto font-sans font-thin">Jl. Pagar Alam, Perum Griya Sejahtera, Blok L, No 13 Gunung Terang, Kec. Langkapura, Bandar Lampung</p>
+            </div>
+          }
           {/* <button className="mx-auto text-white bg-brand-500 rounded-3xl border-0 py-1 px-8 focus:outline-none hover:bg-brand-600 rounded text-lg font-sans">Menuju Lokasi</button> */}
           <div className="flex flex-row text-center justify-center space-x-2 font-sans mt-12 mb-16 mx-auto">
             <div className='time-section'>
@@ -489,4 +501,4 @@ const Landing = () => {
   </>)
 }
 
-export default Landing;
+export default Landing2;

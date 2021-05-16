@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fontsource/nunito-sans": "^4.3.0",
+    "@supabase/supabase-js": "^1.11.13",
     "imagemin": "^8.0.0",
     "imagemin-jpegoptim": "^7.0.0",
     "imagemin-jpegtran": "^7.0.0",

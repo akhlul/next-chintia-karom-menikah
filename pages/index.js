@@ -6,8 +6,8 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 // Components
 // import Landing from "../components/landing"
-const Landing = dynamic(() =>
-  import('../components/landing'), {
+const Landing2 = dynamic(() =>
+  import('../components/landing2'), {
   loading: () => {
     console.log('loading dlu')
     return (
@@ -29,7 +29,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Landing />
+      <Landing2 tamu={{nama:"", alamat:"", acara:'1'}} />
     </>
   )
 }
