@@ -77,7 +77,7 @@ const Landing = () => {
         'number': '',
       }
     })
-    console.log(output)
+    // console.log(output)
     setPhotos(output)
   }, [])
 
