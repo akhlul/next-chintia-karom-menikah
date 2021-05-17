@@ -1,7 +1,7 @@
 // const withCSS = require('@zeit/next-css');
 
 // module.exports = withCSS();
-const withImages = require('next-images')
+// const withImages = require('next-images')
 const WindiCSSWebpackPlugin = require('windicss-webpack-plugin').default;
 
 module.exports = {

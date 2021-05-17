@@ -94,29 +94,29 @@ Invites.getInitialProps = async (ctx) => {
     const tamu = await fetchTamu(code);
     console.log(tamu)
 
-    // if (!tamu) {
-    //   return {
-    //     redirect: {
-    //       destination: '/',
-    //       permanent: false,
-    //     },
-    //   }
-    // }
-    // return { props: { tamu } }
+    if (!tamu) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      }
+    }
+    return { tamu: tamu }
 
     // test only
-    return tamu ? { tamu } : { notFound: true };
+    // return tamu ? { tamu } : { notFound: true };
   } catch (error) {
     console.error(error);
-    // return {
-    //   redirect: {
-    //     destination: '/',
-    //     permanent: false,
-    //   },
-    // }
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
 
     // test only
-    return { notFound: true }
+    // return { notFound: true }
   }
 }
 
