@@ -1,16 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import ReactBnbGallery from 'react-bnb-gallery';
 // import Image from 'next/image'
+
+import ReactBnbGallery from 'react-bnb-gallery';
+import { useForm } from "react-hook-form";
+import ReactAudioPlayer from 'react-audio-player';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
+
+import supabase from '../supabase'
 
 // Styles
 import styles from './landing.module.css'
 import 'react-bnb-gallery/dist/style.css'
+import 'pure-react-carousel/dist/react-carousel.es.css';
 
 // Components
 import { Gallery } from "./gallery";
 import { QuotationMark, EngagementRing } from './quotation-mark.svg.js'
 
-const Landing2 = ({tamu}) => {
+const Landing2 = ({ tamu }) => {
+  const { register, handleSubmit } = useForm();
+  const [ucapans, setUcapans] = useState([]);
+
+  useEffect(() => {
+    fetchAllUcapans()
+  }, [])
+
+  const onSubmitUcapan = (ucapan) => {
+    console.log(ucapan)
+    insertUcapan(ucapan)
+  }
+
+  const insertUcapan = async (ucapan) => {
+    let { data, error } = await supabase
+      .from('ucapan')
+      .insert([ucapan])
+    console.log(error)
+    console.log(data)
+    fetchAllUcapans()
+  }
+
+  const fetchAllUcapans = async () => {
+    let { data, error } = await supabase
+      .from('ucapan')
+      .select('*')
+    console.log(data)
+    setUcapans(data)
+  }
+
+
   const [countdownDate, setCountdownDate] = useState(new Date('05/22/2021').getTime());
   const [countdownTimer, setCountdownTimer] = useState({
     days: 0,
@@ -82,7 +119,7 @@ const Landing2 = ({tamu}) => {
     // console.log(output)
     setPhotos(output)
   }, [])
-  
+
   // console.log(tamu)
   // const tamu = {
   //   // nama: "",
@@ -251,7 +288,7 @@ const Landing2 = ({tamu}) => {
             <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed">Masjid Agung Baitul Mukminin Jombang</p>
             <p className="lg:w-2/3 mx-auto font-sans font-thin">Jl. KH. A. Dahlan No.28, Jombatan, Kec. Jombang, Kab. Jombang</p>
           </div>
-          { (tamu.acara == '1') ?
+          {(tamu.acara == '1') ?
             <div className="flex flex-col text-center mt-16 mx-auto">
               <h3 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4">Resepsi</h3>
               <span className="inline-block self-center h-1 w-10 rounded bg-white mt-2 mb-4"></span>
@@ -260,7 +297,7 @@ const Landing2 = ({tamu}) => {
               <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed">Kediaman Mempelai Wanita</p>
               <p className="lg:w-2/3 mx-auto font-sans font-thin">Desa Plandi Utara RT 21/RW 05 Kec. Jombang, Kab. Jombang</p>
             </div>
-          :
+            :
             <div className="flex flex-col text-center mt-16 mx-auto">
               <h3 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4">Ngunduh Mantu</h3>
               <span className="inline-block self-center h-1 w-10 rounded bg-white mt-2 mb-4"></span>
@@ -304,9 +341,10 @@ const Landing2 = ({tamu}) => {
     </section>
 
 
-    <section name="galeri" className="flex justify-center text-gray-600 body-font my-4 mx-4 lg:mx-8">
+    <section name="galeri" className="flex flex-col justify-center text-gray-600 body-font my-4 mx-4 lg:mx-8">
       {/* <div className="h-full w-full"> */}
       {/* <button > Open gallery </button> */}
+      <h3 className="font-medium text-2xl lg:text-4xl font-serif text-center tracking-wide my-4">Our Happy Moments Together</h3>
       <div className="block aspect-1">
         <div className={styles['masonry']} onClick={() => setIsGalleryOpen(true)}>
           {photos.map((photo) => (
@@ -328,11 +366,10 @@ const Landing2 = ({tamu}) => {
 
 
     <section className="text-gray-600 body-font">
-      <div className="container px-5 py-24 mx-auto flex flex-wrap">
+      <div className="container px-5 py-12 mx-auto flex flex-col">
+        <h3 className="font-medium text-2xl lg:text-4xl font-serif text-center tracking-wide my-4">Our Story</h3>
         <div className="flex flex-wrap w-full">
           <div className="lg:w-3/5 md:w-1/2 md:pr-10 md:py-6">
-
-            <h3 className="font-medium text-2xl lg:text-4xl font-serif text-center tracking-wide my-4">Our Story</h3>
             <div className="flex relative pb-12">
               <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
                 <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
@@ -453,7 +490,7 @@ const Landing2 = ({tamu}) => {
           {/* <iframe className="absolute inset-0" scrolling="no" src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" width="100%" height="100%" frameborder="0"></iframe> */}
           <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md font-sans invisible lg:visible">
             <div className="px-6">
-              <h2 className="title-font font-sans font-semibold text-gray-900 tracking-widest text-xs">Alamat</h2>
+              <h2 className="title-font font-sans font-semibold text-gray-900 text-xs">Alamat</h2>
               <p className="mt-1 font-sans">Desa Plandi Utara RT 21/RW 05 Kec. Jombang, Kab. Jombang  </p>
             </div>
             {/* <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
@@ -465,38 +502,115 @@ const Landing2 = ({tamu}) => {
           </div>
         </div>
         <div className="lg:w-1/3 md:w-1/2 bg-brand-400 text-white flex flex-col md:ml-auto w-full md:py-8 px-5 mt-8 md:mt-0">
-          <h3 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4 self-center">RSVP</h3>
-          <p className="leading-relaxed mb-5 text-gray-600 font-sans text-center">Please kindly help us prepare everything better by confirming your attendance to our wedding event with the following RSVP form:</p>
-          <div className="relative mb-4">
-            <label className="leading-7 text-sm text-gray-600 font-sans">Nama</label>
-            <input type="text" id="name" name="name" className="w-full bg-white rounded border-0 focus:ring-2 focus:ring-brand-200 text-base outline-none text-brand-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value={tamu.nama || ""} />
-          </div>
-          <div className="relative mb-4">
-            <label className="leading-7 text-sm text-gray-600 font-sans">Pesan</label>
-            <textarea id="message" name="message" className="w-full bg-white rounded border-0 focus:ring-2 focus:ring-brand-200 h-24 text-base outline-none text-brand-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-          </div>
-          <div className="relative mb-4">
-            <label className="leading-7 text-sm text-gray-600 font-san">Apakah akan menghadiri?</label>
-            <div className="flex flex-row space-x-2">
-              <span className="elementor-field-option">
-                <input type="radio" value="Yes" name="is_attending" required="required" aria-required="true" />
-                <label className="leading-7 text-sm text-gray-600 font-san">Ya</label>
-              </span>
-              <span className="">
-                <input type="radio" value="No" name="is_attending" required="required" aria-required="true" />
-                <label className="leading-7 text-sm text-gray-600 font-san">Tidak</label>
-              </span>
-              <span className="">
-                <input type="radio" value="Uncertain" name="is_attending" required="required" aria-required="true" />
-                <label className="leading-7 text-sm text-gray-600 font-san">Ragu-ragu</label>
-              </span>
+          <form onSubmit={handleSubmit(onSubmitUcapan)}>
+            {/* <h3 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4 self-center">RSVP</h3> */}
+            <h3 className="font-medium text-2xl lg:text-4xl font-serif text-center tracking-wide my-4">RSVP</h3>
+            <p className="leading-relaxed mb-5 text-gray-600 font-sans text-center">Please kindly help us prepare everything better by confirming your attendance to our wedding event with the following RSVP form:</p>
+            <div className="relative mb-4">
+              <label className="leading-7 text-sm text-gray-600 font-sans">Nama</label>
+              <input
+                className="w-full bg-white rounded border-0 focus:ring-2 focus:ring-brand-200 text-base outline-none text-brand-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                type="text" defaultValue={tamu.nama || ""}
+                {...register('nama')}
+              />
             </div>
-          </div>
-          <button className="text-brand-500 bg-white rounded-3xl border-0 py-1 px-8 mx-auto focus:outline-none hover:bg-brand-200 rounded text-lg">Kirim</button>
-          <p className="text-xs text-gray-500 my-3">*Anda dapat mengirim konfirmasi lebih dari beberapa kali.</p>
+            <div className="relative mb-4">
+              <label className="leading-7 text-sm text-gray-600 font-sans">Pesan</label>
+              <textarea
+                className="w-full bg-white rounded border-0 focus:ring-2 focus:ring-brand-200 h-24 text-base outline-none text-brand-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                {...register('ucapan')} ></textarea>
+            </div>
+            <div className="relative mb-4">
+              <label className="leading-7 text-sm text-gray-600 font-sans">Apakah akan menghadiri?</label>
+              <select {...register('rsvp')} className="text-brand-700 font-sans rounded border-0 focus:ring-2 focus:ring-brand-200 outline-none ">
+                <option value='ya'>Ya</option>
+                <option value='tidak'>Tidak</option>
+                <option value='ragu'>Ragu-ragu</option>
+              </select>
+              {/* <div className="flex flex-row space-x-2">
+                <span className="elementor-field-option">
+                  <input type="radio" value="Yes" name="is_attending" required="required" aria-required="true" />
+                  <label className="leading-7 text-sm text-gray-600 font-san">Ya</label>
+                </span>
+                <span className="">
+                  <input type="radio" value="No" name="is_attending" required="required" aria-required="true" />
+                  <label className="leading-7 text-sm text-gray-600 font-san">Tidak</label>
+                </span>
+                <span className="">
+                  <input type="radio" value="Uncertain" name="is_attending" required="required" aria-required="true" />
+                  <label className="leading-7 text-sm text-gray-600 font-san">Ragu-ragu</label>
+                </span>
+              </div> */}
+            </div>
+            <button className="text-brand-500 bg-white rounded-3xl border-0 py-1 px-8 mx-auto focus:outline-none hover:bg-brand-200 rounded text-lg">Kirim</button>
+            <p className="text-xs text-gray-500 my-3">*Anda dapat mengirim konfirmasi lebih dari beberapa kali.</p>
+          </form>
         </div>
       </div>
     </section>
+
+    <section name="wishes" className=" bg-brand-500 flex items-center justify-center flex-wrap lg:flex-nowrap lg:flex-row text-gray-600 body-font my-4 " >
+      <div className="flex items-center justify-center w-screen flex-col text-white my-4">
+        <h2 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4">Ucapan</h2>
+        <div className="container px-5 py-8 mx-auto text-center">
+          <CarouselProvider
+            visibleSlides={3}
+            totalSlides={ucapans.length}
+            step={1}
+            naturalSlideWidth={400}
+            naturalSlideHeight={400}
+          >
+            <Slider>
+              {ucapans.map( (ucap, idx) => (
+                <Slide
+                  className=" w-1/2 p-4 font-sans"
+                  index={idx}
+                >
+                  <div className="border border-gray-200 rounded-lg p-6 mx-2 text-white">
+                    <h2 className="text-lg font-medium title-font mb-2">{ucap.nama}</h2>
+                    <p className="leading-relaxed text-base">{ucap.ucapan}<sup>{idx+1}</sup></p>
+                  </div>
+                </Slide>
+              ))}
+            </Slider>
+            <ButtonBack className="border-1 border-white rounded py-2 px-4 mx-2" >Back</ButtonBack>
+            <ButtonNext className="border-1 border-white rounded py-2 px-4 mx-2" >Next</ButtonNext>
+          </CarouselProvider>
+        </div>
+        {/* <div className="container flex flex-wrap">
+          <div className="lg:w-1/4 lg:w-1/3 w-1/2 p-4">
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Shooting Stars</h2>
+              <p class="leading-relaxed text-base">Optional className string. The slider uses the css transform property, applying translateX to move the slider tray east and west for a horizontal slider, and translateY to move the slider north and south for a vertical slider. The actual animation is the result of applying a CSS3 transition effect. If you supply your own classNameAnimation class, the default transition is disabled and ONLY the transitions specified by the classNameAnimation class are applied. Learn more about CSS3 transitions.</p>
+            </div>
+          </div>
+          <div className="lg:w-1/4 lg:w-1/3 w-1/2 p-4">
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Shooting Stars</h2>
+              <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
+            </div>
+          </div>
+          <div className="lg:w-1/4 lg:w-1/3 w-1/2 p-4">
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Shooting Stars</h2>
+              <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
+            </div>
+          </div>
+          <div className="lg:w-1/4 lg:w-1/3 w-1/2 p-4">
+            <div className="border border-gray-200 rounded-lg p-6">
+              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Shooting Stars</h2>
+              <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
+            </div>
+          </div>
+        </div> */}
+      </div>
+    </section>
+
+    {/* <ReactAudioPlayer
+      src="my_audio_file.ogg"
+      autoPlay
+      controls
+    /> */}
 
   </>)
 }
