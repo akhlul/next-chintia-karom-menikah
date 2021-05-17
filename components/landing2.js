@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 // import Image from 'next/image'
 
 import ReactBnbGallery from 'react-bnb-gallery';
@@ -43,6 +43,7 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
     let { data, error } = await supabase
       .from('ucapan')
       .select('*')
+      .order('id', { ascending: false })
     console.log(data)
     setUcapans(data)
   }
@@ -165,7 +166,7 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
           <QuotationMark className="inline-block w-8 h-8 text-brand-400 mb-8" />
           <p className="leading-relaxed text-lg">Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir.</p>
           <span className="inline-block h-1 w-10 rounded bg-brand-500 mt-8 mb-6"></span>
-          <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">QS Ar-Ruum:21</h2>
+          <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">QS Ar-Rum:21</h2>
           {/* <p className="text-gray-500">Ayat 21</p> */}
         </div>
       </div>

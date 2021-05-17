@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import supabase from '../supabase'
 
 const People = () => {
@@ -249,7 +249,7 @@ const People = () => {
           "invite_code": "ANID36"
         },
         {
-          "nama": "Anita Dwi Permathasari, S.Tr.Stat.", 
+          "nama": "Anita Dwi Permathasari, S.Tr.Stat.",
           "tujuan": "BPS Kota Pontianak",
           "acara": 1,
           "sesi": 2,
@@ -297,10 +297,39 @@ const People = () => {
     setGuest(data)
   }
 
+  const getWA = (guest = tamus[0  ]) => {
+    console.log('getwa')
+    return (`
+Kepada Yang Terhormat, ${guest.nama}
+
+_Bismillahirrahmanirrahim_
+_Assalamu'alaykum Warahmatullahi Wabarakatuh_
+
+”Dan segala sesuatu kami ciptakan berpasangan-pasangan supaya kamu mengingat kebesaran Allah.” (QS. Adz-Dzariyat : 49)"
+
+Dengan mengharap Rahmat dan Ridho Allah Subhanallahu wa Ta'ala, kami bermaksud menyelenggarakan acara pernikahan kami:
+
+        *Chintia Arisandi Hidayat*
+                            *&*
+                  *Ahlul Karom*
+
+yang insyaAllah akan dilaksanakan pada:
+
+🗓  *Sabtu, 22 Mei 2021*
+📍  *Jombang, Jawa Timur*
+📨. https://ckwedding.id/invite/${guest.invite_code}
+
+Merupakan suatu kehormatan dan kebahagiaan apabila teman-teman berkenan hadir dan atau memberikan doa restu kepada kami.
+Terima kasih.
+
+_Wassalamu'alaykum Warahmatullahi Wabarakatuh_
+    `)
+  }
+
   return (
     <>
       Welcome to Tezt!
-      <br />
+      {/* <br />
       <textarea className="w-full h-full" value={JSON.stringify(tamus)} />
       <br />
       <button className="border-1 px-2 py-4 border-green-50" onClick={fetchAllTamu} >Refresh Data</button>
@@ -312,7 +341,19 @@ const People = () => {
       Invite Code :
       <input className="w-full h-full border-2" onChange={e => setInviteCode(e.target.value)} />
       <br />
-      <button className="border-1 rounded px-2 py-4 border-green-50" onClick={e => fetchTamu(e, inviteCode)} >Refresh Data</button>
+      <button className="border-1 rounded px-2 py-4 border-green-50" onClick={e => fetchTamu(e, inviteCode)} >Get Data</button>
+      <br />
+      <br /> */}
+      <p>Generate invite tamu undangan : </p>
+      <select onChange={(e) => setInviteCode(e.target.value)} >
+        {tamus.map((tamu) =>
+          <option value={tamu.invite_code}>{tamu.nama}</option>
+        )}
+      </select>
+      <button className="border-1 rounded mx-2 px-2 py-4 border-green-50" onClick={e => fetchTamu(e, inviteCode)} >Get Data</button>
+      <br />
+      <textarea ref="textArea" className="w-full h-screen" value={getWA(guest)} />
+      <br />
     </>
   )
 }
