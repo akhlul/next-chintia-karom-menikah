@@ -1,9 +1,10 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 // import Image from 'next/image'
 
 import ReactBnbGallery from 'react-bnb-gallery';
 import { useForm } from "react-hook-form";
 import ReactAudioPlayer from 'react-audio-player';
+import AliceCarousel from 'react-alice-carousel';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
 
 import supabase from '../supabase'
@@ -11,12 +12,14 @@ import supabase from '../supabase'
 // Styles
 import styles from './landing.module.css'
 import 'react-bnb-gallery/dist/style.css'
+import 'react-alice-carousel/lib/alice-carousel.css';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
 // Components
 import { Gallery } from "./gallery";
 import { QuotationMark, EngagementRing } from './quotation-mark.svg.js'
 
+// const Landing2 = ({ tamu } = { tamu: { nama: null, tujuan: null, acara: "1", } }) => {
 const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) => {
   const { register, handleSubmit } = useForm();
   const [ucapans, setUcapans] = useState([]);
@@ -146,8 +149,12 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
             <p className="lg:w-2/3 mx-auto font-sans font-semibold leading-relaxed">Saturday, May 22<sup>th</sup>, 2021</p>
           </div>
           <div className="flex flex-col text-center mt-16 mx-auto">
-            <h3 className="font-semibold font-sans">Kepada: </h3>
-            <p className="mb-4 text-sm font-sans">{tamu.nama ?? "Tamu Undangan"}<br />({tamu.tujuan ?? "Di Tempat"})</p>
+            <h3 className="font-semibold font-sans">Kepada Yth, <br />Bapak/Ibu/Saudara/i: </h3>
+            <p className="mb-4 text-sm font-sans">
+              {tamu.nama || "Tamu Undangan"}
+              <br />
+              ({tamu.tujuan || "Di Tempat"})
+            </p>
             <button className="mx-auto text-white bg-brand-500 rounded-3xl border-0 py-1 px-8 focus:outline-none hover:bg-brand-600 rounded text-lg font-sans">Buka Undangan</button>
           </div>
         </div>
@@ -155,7 +162,7 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
 
     </header>
 
-   <section name="ayat" className="bg-white flex items-center justify-center <lg:flex-wrap lg:flex-row text-gray-600 body-font my-4 mx-4 lg:mx-8">
+    <section name="ayat" className="bg-white flex items-center justify-center <lg:flex-wrap lg:flex-row text-gray-600 body-font my-4 mx-4 lg:mx-8">
       <div className="h-full w-full bg-brand-400">
         <div className="object-cover object-center relative rounded-full">
           <img src="/photos/IMG-20210424-WA0007.jpg" alt="prayer" className="w-full h-auto object-cover object-center rounded" />
@@ -521,7 +528,7 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
               </div> */}
             </div>
             <button className="text-brand-500 bg-white rounded-3xl border-0 py-1 px-8 mx-auto focus:outline-none hover:bg-brand-200 rounded text-lg">Kirim</button>
-            <p className="text-xs text-gray-500 my-3">*Anda dapat mengirim konfirmasi lebih dari beberapa kali.</p>
+            <p className="text-xs text-gray-500 my-3">*Anda dapat mengirim konfirmasi lebih dari satu kali.</p>
           </form>
         </div>
       </div>
@@ -531,7 +538,17 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
       <div className="flex items-center justify-center w-screen flex-col text-white my-4">
         <h2 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4">Ucapan</h2>
         <div className="container px-5 py-8 mx-auto text-center">
-          <CarouselProvider
+          <AliceCarousel mouseTracking items={
+            ucapans.map((ucap, idx) => (
+              <div
+                className="border border-gray-200 rounded-lg p-6 mx-2 text-white"
+                onDragStart={e => { e.preventDefault() } }>
+                <h2 className="text-lg font-medium title-font mb-2">{ucap.nama ?? ""}</h2>
+                <p className="leading-relaxed text-base">{ucap.ucapan}<sup>{idx + 1}</sup></p>
+              </div>
+            ))
+          } />
+          {/* <CarouselProvider
             visibleSlides={3}
             totalSlides={ucapans.length}
             step={1}
@@ -553,7 +570,9 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
             </Slider>
             <ButtonBack className="border-1 border-white rounded py-2 px-4 mx-2" >Back</ButtonBack>
             <ButtonNext className="border-1 border-white rounded py-2 px-4 mx-2" >Next</ButtonNext>
-          </CarouselProvider>
+          </CarouselProvider> */}
+
+
         </div>
         {/* <div className="container flex flex-wrap">
           <div className="lg:w-1/4 lg:w-1/3 w-1/2 p-4">

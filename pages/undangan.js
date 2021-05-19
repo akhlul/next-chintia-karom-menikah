@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import supabase from '../supabase'
 
 const People = () => {
@@ -299,13 +300,13 @@ const People = () => {
 
   const getWA = (guest = tamus[0  ]) => {
     console.log('getwa')
-    return (`
-Kepada Yang Terhormat, ${guest.nama}
+    return (`Kepada Yth, 
+Bapak/Ibu/Saudara/i : *${guest.nama}*
 
 _Bismillahirrahmanirrahim_
 _Assalamu'alaykum Warahmatullahi Wabarakatuh_
 
-”Dan segala sesuatu kami ciptakan berpasangan-pasangan supaya kamu mengingat kebesaran Allah.” (QS. Adz-Dzariyat : 49)"
+”Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir.” (QS. Ar-Rum : 21)"
 
 Dengan mengharap Rahmat dan Ridho Allah Subhanallahu wa Ta'ala, kami bermaksud menyelenggarakan acara pernikahan kami:
 
@@ -346,13 +347,17 @@ _Wassalamu'alaykum Warahmatullahi Wabarakatuh_
       <br /> */}
       <p>Generate invite tamu undangan : </p>
       <select onChange={(e) => setInviteCode(e.target.value)} >
+        <option value={""}>-- Pilih Nama Tamu Undangan --</option>
         {tamus.map((tamu) =>
           <option value={tamu.invite_code}>{tamu.nama}</option>
         )}
       </select>
-      <button className="border-1 rounded mx-2 px-2 py-4 border-green-50" onClick={e => fetchTamu(e, inviteCode)} >Get Data</button>
+      <button className="border-1 rounded m-2 px-4 py-2 border-green-50" onClick={e => fetchTamu(e, inviteCode)} >Get Data</button>
+      <CopyToClipboard text={getWA(guest)}>
+        <button className="border-1 rounded my-2 px-4 py-2 border-green-50">Copy to clipboard</button>
+      </CopyToClipboard>
       <br />
-      <textarea ref="textArea" className="w-full h-screen" value={getWA(guest)} />
+      <textarea className="w-full h-100" value={getWA(guest)} />
       <br />
     </>
   )
