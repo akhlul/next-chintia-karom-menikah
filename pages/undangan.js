@@ -28,32 +28,74 @@ const People = () => {
       .insert(
         [
           {
-            "nama": "Imam Hanafi",
-            "tujuan": "Mitra Statistik Way Kanan",
-            "acara": 2,
-            "sesi": 2,
-            "invite_code": "IMAM88"
-          },
-          {
-            "nama": "Mitra Statistik Way Kanan",
-            "tujuan": "Kabupaten Way Kanan",
-            "acara": 2,
-            "sesi": 2,
-            "invite_code": "MITRA1807"
-          },
-          {
-            "nama": "Munir Novrianto",
-            "tujuan": "BPS Kabupaten Way Kanan",
+            "nama": "KALTENG 56",
+            "tujuan": "Kalimantan Tengah",
             "acara": 1,
             "sesi": 2,
-            "invite_code": "MUNIR99"
+            "invite_code": "KALTENG56"
           },
           {
-            "nama": "Rina Setiana",
-            "tujuan": "BPS Kabupaten Way Kanan",
+            "nama": "STIS JOMBANG",
+            "tujuan": "Di Tempat",
             "acara": 1,
             "sesi": 2,
-            "invite_code": "RINA76"
+            "invite_code": "STISJOMBANG"
+          },
+          {
+            "nama": "ALUMNI KOSAN IJO",
+            "tujuan": "Di Tempat",
+            "acara": 1,
+            "sesi": 2,
+            "invite_code": "KOSANIJO"
+          },
+          {
+            "nama": "Siti Mariyah, SST. MT",
+            "tujuan": "Di Tempat",
+            "acara": 1,
+            "sesi": 2,
+            "invite_code": "SITIMARIYAH"
+          },
+          {
+            "nama": "Mbak Lina & Keluarga",
+            "tujuan": "Barito Selatan",
+            "acara": 1,
+            "sesi": 2,
+            "invite_code": "LINA88"
+          },
+          {
+            "nama": "Bu Dina",
+            "tujuan": "Barito Selatan",
+            "acara": 1,
+            "sesi": 2,
+            "invite_code": "DINA25"
+          },
+          {
+            "nama": "Eddy Surahman, SST., M.Si",
+            "tujuan": "BPS Kotawaringin Timur",
+            "acara": 1,
+            "sesi": 2,
+            "invite_code": "EDDY87"
+          },
+          {
+            "nama": "Desy Erviana, SST. & Suami",
+            "tujuan": "BPS Kabupaten Purwakarta",
+            "acara": 1,
+            "sesi": 2,
+            "invite_code": "DESY87"
+          },
+          {
+            "nama": "Alumni X.4 SMA N 7 Bandar Lampung",
+            "tujuan": "Di Tempat",
+            "acara": 2,
+            "sesi": 2,
+            "invite_code": "X4SMA7"
+          },
+          {
+            "nama": "Abednego Delta Pradana",
+            "tujuan": "BPS Gunung Mas",
+            "acara": 1,
+            "sesi": 2,
+            "invite_code": "ABED95"
           }
         ])
     console.log(error)
@@ -87,7 +129,7 @@ const People = () => {
 
   const getWA = () => {
     let tamu = guest ?? { "nama": "A", "tujuan": "B", "acara": 1, "sesi": 1, "invite_code": "A11" }
-    tamu.waktu = (tamu.acara == 2 ? "Minggu, 5 Juni 2021" : "Sabtu, 22 Mei 2021")
+    tamu.waktu = (tamu.acara == 2 ? "Minggu, 6 Juni 2021" : "Sabtu, 22 Mei 2021")
     tamu.lokasi = (tamu.acara == 2 ? "Gunung Terang, B. Lampung" : "Jombang, Jawa Timur")
     console.log('getwa')
     const template = `Kepada Yth, 

@@ -20,10 +20,11 @@ import { QuotationMark, EngagementRing } from './quotation-mark.svg.js'
 const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) => {
   const { register, handleSubmit } = useForm();
   const [ucapans, setUcapans] = useState([]);
+  const lol = 0;
 
   useEffect(() => {
     fetchAllUcapans()
-  }, [])
+  }, [ucapans])
 
   const onSubmitUcapan = (ucapan) => {
     console.log(ucapan)
@@ -44,7 +45,7 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
       .from('ucapan')
       .select('*')
       .order('id', { ascending: false })
-    console.log(data)
+    // console.log(data)
     setUcapans(data)
   }
 
@@ -486,8 +487,9 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
         <div className="lg:w-1/3 md:w-1/2 bg-brand-400 text-white flex flex-col md:ml-auto w-full md:py-8 px-5 mt-8 md:mt-0">
           <form onSubmit={handleSubmit(onSubmitUcapan)}>
             {/* <h3 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4 self-center">RSVP</h3> */}
-            <h3 className="font-medium text-2xl lg:text-4xl font-serif text-center tracking-wide my-4">RSVP</h3>
-            <p className="leading-relaxed mb-5 text-gray-600 font-sans text-center">Please kindly help us prepare everything better by confirming your attendance to our wedding event with the following RSVP form:</p>
+            {/* <h3 className="font-medium text-2xl lg:text-4xl font-serif text-center tracking-wide my-4">RSVP</h3> */}
+            <h3 className="font-medium text-2xl lg:text-4xl font-serif text-center tracking-wide my-4">Wishes</h3>
+            {/* <p className="leading-relaxed mb-5 text-gray-600 font-sans text-center">Please kindly help us prepare everything better by confirming your attendance to our wedding event with the following RSVP form:</p> */}
             <div className="relative mb-4">
               <label className="leading-7 text-sm text-gray-600 font-sans">Nama</label>
               <input
@@ -502,10 +504,10 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
                 className="w-full bg-white rounded border-0 focus:ring-2 focus:ring-brand-200 h-24 text-base outline-none text-brand-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                 {...register('ucapan')} ></textarea>
             </div>
-            <div className="relative mb-4">
+            <div className="relative mb-4 hidden">
               <label className="leading-7 text-sm text-gray-600 font-sans">Apakah akan menghadiri?</label>
               <select {...register('rsvp')} className="text-brand-700 font-sans rounded border-0 focus:ring-2 focus:ring-brand-200 outline-none ">
-                <option value='ya'>Ya</option>
+                <option value='ya' selected>Ya</option>
                 <option value='tidak'>Tidak</option>
                 <option value='ragu'>Ragu-ragu</option>
               </select>
@@ -524,7 +526,7 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
                 </span>
               </div> */}
             </div>
-            <button className="text-brand-500 bg-white rounded-3xl border-0 py-1 px-8 mx-auto focus:outline-none hover:bg-brand-200 rounded text-lg">Kirim</button>
+            <button className="text-brand-500 bg-white rounded-3xl border-0 py-1 px-8 mx-auto focus:outline-none hover:bg-brand-200 rounded text-lg" >Kirim</button>
             <p className="text-xs text-gray-500 my-3">*Anda dapat mengirim konfirmasi lebih dari satu kali.</p>
           </form>
         </div>
@@ -535,11 +537,21 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
       <div className="flex items-center justify-center w-screen flex-col text-white my-4">
         <h2 className="font-medium text-2xl lg:text-4xl font-serif tracking-wide my-4">Ucapan</h2>
         <div className="container px-5 py-8 mx-auto text-center">
-          <AliceCarousel mouseTracking items={
-            ucapans.map((ucap, idx) => (
-              <div
+          <AliceCarousel 
+            mouseTracking
+            autoPlay={true}
+            paddingLeft={50}
+            paddingRight={50}
+            responsive={{
+              0: { items: 1 },
+              568: { items: 2 },
+              1024: { items: 3 },
+            }}
+            items={
+              ucapans.map((ucap, idx) => (
+                <div
                 className="border border-gray-200 rounded-lg p-6 mx-2 text-white"
-                onDragStart={e => { e.preventDefault() } }>
+                onDragStart={e => { e.preventDefault() }}>
                 <h2 className="text-lg font-medium title-font mb-2">{ucap.nama ?? ""}</h2>
                 <p className="leading-relaxed text-base">{ucap.ucapan}<sup>{idx + 1}</sup></p>
               </div>
