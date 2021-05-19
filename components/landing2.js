@@ -13,7 +13,6 @@ import supabase from '../supabase'
 import styles from './landing.module.css'
 import 'react-bnb-gallery/dist/style.css'
 import 'react-alice-carousel/lib/alice-carousel.css';
-import 'pure-react-carousel/dist/react-carousel.es.css';
 
 // Components
 import { Gallery } from "./gallery";
@@ -548,31 +547,6 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
               </div>
             ))
           } />
-          {/* <CarouselProvider
-            visibleSlides={3}
-            totalSlides={ucapans.length}
-            step={1}
-            naturalSlideWidth={400}
-            naturalSlideHeight={400}
-          >
-            <Slider>
-              {ucapans.map((ucap, idx) => (
-                <Slide
-                  className=" w-1/2 p-4 font-sans"
-                  index={idx}
-                >
-                  <div className="border border-gray-200 rounded-lg p-6 mx-2 text-white">
-                    <h2 className="text-lg font-medium title-font mb-2">{ucap.nama ?? ""}</h2>
-                    <p className="leading-relaxed text-base">{ucap.ucapan}<sup>{idx + 1}</sup></p>
-                  </div>
-                </Slide>
-              ))}
-            </Slider>
-            <ButtonBack className="border-1 border-white rounded py-2 px-4 mx-2" >Back</ButtonBack>
-            <ButtonNext className="border-1 border-white rounded py-2 px-4 mx-2" >Next</ButtonNext>
-          </CarouselProvider> */}
-
-
         </div>
         {/* <div className="container flex flex-wrap">
           <div className="lg:w-1/4 lg:w-1/3 w-1/2 p-4">
