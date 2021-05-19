@@ -5,8 +5,6 @@ import ReactBnbGallery from 'react-bnb-gallery';
 import { useForm } from "react-hook-form";
 import ReactAudioPlayer from 'react-audio-player';
 import AliceCarousel from 'react-alice-carousel';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
-
 import supabase from '../supabase'
 
 // Styles
