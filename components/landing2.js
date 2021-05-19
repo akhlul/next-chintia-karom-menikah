@@ -49,7 +49,7 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
   }
 
 
-  const [countdownDate, setCountdownDate] = useState(new Date('05/22/2021').getTime());
+  const [countdownDate, setCountdownDate] = useState(new Date("2021-05-22T07:00:00").getTime());
   const [countdownTimer, setCountdownTimer] = useState({
     days: 0,
     hours: 0,
@@ -230,7 +230,7 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
                 Ibu Hj. Sulastri, S.Pd.
               </p>
               <div className="inline-flex space-x-2">
-                <a className="mt-3 text-white bg-white inline-flex items-center rounded-full mx-auto border-0 py-2 px-2 focus:outline-none hover:bg-brand-600">
+                <a className="mt-3 text-white bg-white inline-flex items-center rounded-full mx-auto border-0 py-2 px-2 focus:outline-none hover:bg-brand-600" href="">
                   <img src="/logo/iconfinder_twitter_2959740.svg" className="h-24px w-24px fill-white" />
                 </a>
                 <a className="mt-3 text-white bg-white inline-flex items-center rounded-full mx-auto border-0 py-2 px-2 focus:outline-none hover:bg-brand-600">
