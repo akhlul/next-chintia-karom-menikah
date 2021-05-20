@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 // import Image from 'next/image'
 
 import ReactBnbGallery from 'react-bnb-gallery';
@@ -40,14 +40,14 @@ const Landing2 = ({ tamu } = { tamu: { nama: "", tujuan: "", acara: "1", } }) =>
     fetchAllUcapans()
   }
 
-  const fetchAllUcapans = async () => {
+  const fetchAllUcapans = useCallback( async () => {
     let { data, error } = await supabase
       .from('ucapan')
       .select('*')
       .order('id', { ascending: false })
     // console.log(data)
     setUcapans(data)
-  }
+  }, [ucapans])  
 
 
   const [countdownDate, setCountdownDate] = useState(new Date("2021-05-22T07:00:00").getTime());
